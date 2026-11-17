@@ -6,24 +6,33 @@ O sistema permite que funcionários entrem com e-mail e senha e gerenciem a equi
 
 ## Requisitos
 
-- PHP 8.0 ou superior, com as extensões `pdo_mysql`, `gd`, `fileinfo` e `mbstring`
-- MySQL 8 ou MariaDB 10.4 ou superior
-- Apache (o XAMPP já inclui PHP, MySQL e Apache)
+- PHP 8.0 ou superior no terminal, com as extensões `pdo_mysql`, `gd`, `fileinfo` e `mbstring`
+- MySQL 8 ou MariaDB 10.4 ou superior, com o cliente `mysql` disponível no terminal
 - Navegador atualizado
 
 A extensão `exif` é opcional. Quando está ativa, fotos JPEG tiradas pelo celular são giradas para a orientação correta.
 
 ## Configurar o banco de dados
 
-1. Inicie o MySQL pelo painel do XAMPP.
-2. Abra o phpMyAdmin em [http://localhost/phpmyadmin](http://localhost/phpmyadmin).
-3. Importe o arquivo `database/toymania.sql`.
+1. Deixe o MySQL em execução. No macOS com Homebrew, por exemplo: `brew services start mysql`.
+2. Na pasta do projeto, importe o script:
+
+```bash
+mysql -u root -p < database/toymania.sql
+```
+
+O comando pede a senha do usuário informado. Troque `root` se a sua conta do MySQL tiver outro nome.
 
 Esse arquivo cria o banco `toymania_db`, as tabelas `funcionarios`, `categorias`, `produtos` e `produto_imagens`, as chaves estrangeiras e sete categorias iniciais (Bonecas, Carrinhos, Jogos educativos e outras).
 
 Ele não cria funcionário nem senha. O primeiro acesso é feito pela própria aplicação, para não deixar uma credencial padrão no sistema.
 
-Se precisar reinstalar do zero, apague o banco `toymania_db` no phpMyAdmin e importe o arquivo outra vez.
+Para reinstalar do zero:
+
+```bash
+mysql -u root -p -e "DROP DATABASE IF EXISTS toymania_db;"
+mysql -u root -p < database/toymania.sql
+```
 
 ## Configurar a conexão
 
@@ -37,44 +46,23 @@ define('DB_USER', 'root');
 define('DB_PASS', '');
 ```
 
-No XAMPP, o usuário costuma ser `root` e a senha fica vazia. Se o MySQL recusar o acesso, coloque em `DB_PASS` a senha que você definiu.
+`DB_USER` e `DB_PASS` precisam ser os mesmos dados que você usa no cliente `mysql`. Se a conta tiver senha, coloque essa senha em `DB_PASS`. Deixe vazio só quando a conta realmente não tem senha.
 
-## Executar no XAMPP
+## Executar
 
-1. Copie esta pasta para o diretório `htdocs` do XAMPP.
-   - Windows: `C:\xampp\htdocs\lojabrinquedos`
-   - macOS: `/Applications/XAMPP/xamppfiles/htdocs/lojabrinquedos`
-2. Inicie **Apache** e **MySQL** no painel do XAMPP.
-3. Importe `database/toymania.sql`, como descrito acima.
-4. Confira `config/database.php`.
-5. Garanta que a pasta `uploads/produtos` exista e possa receber arquivos. No XAMPP isso já funciona na maioria dos casos. Se o envio de fotos falhar com mensagem de permissão, dê permissão de escrita a essa pasta.
-
-Para enviar várias fotos de uma vez, o PHP precisa aceitar o tamanho total do formulário. Se necessário, ajuste no `php.ini` do XAMPP:
-
-```ini
-upload_max_filesize = 8M
-post_max_size = 24M
-```
-
-Reinicie o Apache depois de alterar o `php.ini`.
-
-### Alternativa sem XAMPP
-
-Na pasta do projeto, com o MySQL já importado:
+Na pasta do projeto, com o banco já importado:
 
 ```bash
-php -S localhost:8000 router.php
+php -d upload_max_filesize=8M -d post_max_size=24M -S localhost:8000 router.php
 ```
 
-Abra [http://localhost:8000](http://localhost:8000). O arquivo `router.php` só é necessário nesse modo. No Apache, as regras ficam nos arquivos `.htaccess`.
+Os limites de upload entram na hora, para ser possível enviar várias fotos de uma vez. O `router.php` entrega o sistema e impede que um arquivo enviado para `uploads/` seja executado como PHP.
+
+A pasta `uploads/produtos` precisa existir e ter permissão de escrita para o usuário que iniciou o PHP. Ela já vem criada no projeto.
 
 ## Acessar o sistema
 
-Com a pasta em `htdocs/lojabrinquedos`, o endereço é:
-
-[http://localhost/lojabrinquedos/](http://localhost/lojabrinquedos/)
-
-Se o Apache apontar direto para esta pasta, use [http://localhost/](http://localhost/).
+Abra [http://localhost:8000](http://localhost:8000).
 
 Quem não estiver autenticado é enviado para a tela de login. As páginas internas não abrem sem uma sessão válida.
 

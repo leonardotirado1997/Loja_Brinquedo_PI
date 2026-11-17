@@ -2,13 +2,12 @@
 -- Projeto Integrador 2026
 -- Banco de dados do painel administrativo
 --
--- Como importar no phpMyAdmin:
--- 1. Abra http://localhost/phpmyadmin
--- 2. Clique em Importar
--- 3. Escolha este arquivo e confirme
+-- Como importar, na pasta do projeto:
+--   mysql -u root -p < database/toymania.sql
 --
--- Para reinstalar do zero, apague o banco toymania_db no phpMyAdmin
--- e importe este arquivo outra vez.
+-- Para reinstalar do zero:
+--   mysql -u root -p -e "DROP DATABASE IF EXISTS toymania_db;"
+--   mysql -u root -p < database/toymania.sql
 --
 -- O primeiro funcionário NÃO é criado aqui de propósito.
 -- Assim o sistema não fica com uma senha padrão. O cadastro inicial

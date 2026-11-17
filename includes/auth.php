@@ -71,7 +71,7 @@ function exibir_instalacao(): void
             <img class="guest-mark" src="<?= e(asset('img/logo-mark.svg')) ?>" alt="">
             <h1>Falta importar o banco</h1>
             <p class="subtitle">O MySQL respondeu, mas as tabelas da Toy Mania ainda não existem.</p>
-            <div class="alert alert-aviso">Importe o arquivo database/toymania.sql pelo phpMyAdmin e atualize esta página.</div>
+            <div class="alert alert-aviso">No terminal, na pasta do projeto, execute mysql -u root -p &lt; database/toymania.sql e atualize esta página.</div>
         </section>
     </main>
     <?php

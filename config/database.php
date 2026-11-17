@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 /**
  * Conexão com o MySQL.
- * No XAMPP o usuário padrão costuma ser "root" e a senha fica vazia.
- * Ajuste os valores abaixo se o seu MySQL usar outra conta.
+ * Use o mesmo usuário e a mesma senha do cliente mysql.
+ * Deixe DB_PASS vazio apenas se essa conta não tiver senha.
  */
 define('DB_HOST', '127.0.0.1');
 define('DB_PORT', '3306');
@@ -54,12 +54,12 @@ function falha_banco(PDOException $e): void
     error_log('[Toy Mania] Banco: ' . $e->getMessage());
 
     $mensagens = [
-        2002 => 'O MySQL não está em execução. Abra o XAMPP e inicie o módulo MySQL.',
+        2002 => 'O MySQL não está em execução. Inicie o serviço do MySQL e tente novamente.',
         2003 => 'Não foi possível encontrar o MySQL. Confira o host e a porta em config/database.php.',
         1044 => 'O usuário do banco não tem permissão para acessar o toymania_db.',
         1045 => 'O MySQL recusou o usuário ou a senha. Ajuste config/database.php.',
-        1049 => 'O banco toymania_db ainda não existe. Importe o arquivo database/toymania.sql pelo phpMyAdmin.',
-        1146 => 'As tabelas ainda não foram criadas. Importe o arquivo database/toymania.sql pelo phpMyAdmin.',
+        1049 => 'O banco toymania_db ainda não existe. Importe database/toymania.sql com o cliente mysql.',
+        1146 => 'As tabelas ainda não foram criadas. Importe database/toymania.sql com o cliente mysql.',
     ];
 
     $mensagem = $mensagens[$codigo] ?? 'Não foi possível conectar ao banco de dados. Confira o MySQL, o arquivo database/toymania.sql e a configuração em config/database.php.';

@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 /**
  * Roteador do servidor embutido do PHP:
- * php -S localhost:8000 router.php
- *
- * No XAMPP ele não é usado. O Apache aplica as regras do .htaccess.
+ * php -d upload_max_filesize=8M -d post_max_size=24M -S localhost:8000 router.php
  */
 
 $uri = urldecode(parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/');
