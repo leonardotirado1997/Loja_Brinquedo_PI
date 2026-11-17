@@ -185,6 +185,22 @@
         });
     });
 
+    document.querySelectorAll("[data-galeria]").forEach(function (galeria) {
+        const principal = galeria.querySelector("[data-galeria-principal]");
+        if (!(principal instanceof HTMLImageElement)) return;
+        galeria.querySelectorAll("[data-galeria-item]").forEach(function (botao) {
+            botao.addEventListener("click", function () {
+                const src = botao.getAttribute("data-src") || "";
+                if (src === "") return;
+                principal.src = src;
+                galeria.querySelectorAll("[data-galeria-item]").forEach(function (item) {
+                    item.classList.remove("is-ativa");
+                });
+                botao.classList.add("is-ativa");
+            });
+        });
+    });
+
     document.querySelectorAll("[data-gerar-codigo]").forEach(function (botao) {
         botao.addEventListener("click", function () {
             const alvo = document.getElementById(botao.getAttribute("data-gerar-codigo") || "");

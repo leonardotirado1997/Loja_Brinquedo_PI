@@ -82,6 +82,7 @@ require __DIR__ . '/includes/head.php';
             </div>
             <button class="btn btn-primary btn-block" type="submit">Entrar</button>
         </form>
+        <p class="loja-atalho"><a href="<?= e(base_url('loja.php')) ?>">Ver os brinquedos da loja</a></p>
     </section>
 </main>
 <?php require __DIR__ . '/includes/guest-footer.php'; ?>

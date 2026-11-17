@@ -42,7 +42,7 @@ if (str_starts_with($uri, '/uploads/')) {
 }
 
 if ($uri === '/' || $uri === '') {
-    require __DIR__ . '/index.php';
+    require __DIR__ . '/loja.php';
     exit;
 }
 

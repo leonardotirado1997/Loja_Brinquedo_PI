@@ -27,6 +27,7 @@ $itens = [
         <?php endforeach; ?>
     </nav>
 
+    <a class="sidebar-loja" href="<?= e(base_url('loja.php')) ?>"><?= icon('olho') ?> <span>Ver a loja</span></a>
     <form class="sidebar-logout" method="post" action="<?= e(base_url('logout.php')) ?>">
         <?= csrf_field() ?>
         <button type="submit"><?= icon('sair') ?> <span>Sair</span></button>

@@ -62,13 +62,13 @@ A pasta `uploads/produtos` precisa existir e ter permissão de escrita para o us
 
 ## Acessar o sistema
 
-Abra [http://localhost:8000](http://localhost:8000).
+A loja para o cliente fica em [http://localhost:8000](http://localhost:8000). Ela mostra somente os produtos ativos cadastrados no painel.
 
-Quem não estiver autenticado é enviado para a tela de login. As páginas internas não abrem sem uma sessão válida.
+A área da equipe fica em [http://localhost:8000/login.php](http://localhost:8000/login.php). As páginas internas não abrem sem uma sessão válida.
 
 ## Primeiro cadastro de funcionário
 
-1. Acesse o endereço do sistema.
+1. Acesse [http://localhost:8000/login.php](http://localhost:8000/login.php).
 2. Como ainda não existe funcionário, a aplicação abre `setup.php`.
 3. Informe nome, e-mail e uma senha com pelo menos 6 caracteres.
 4. O cargo desse primeiro acesso fica como **Administrador**.
